@@ -4,13 +4,18 @@ const crypto = require('crypto')
 const fs = require('fs')
 const url = require('url')
 const qs = require('querystring')
+const path = require('path')
 
 app.listen(8080, () => {
     console.log('Server Running on port 8080....')
 })
 
-app.get('/login', (req, res) => {
+app.get("/signup.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "signup.html"))
+})
 
+app.get('/login.html', (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "login.html"))
 })
 
 app.get('/storefront', (req, res) => {
