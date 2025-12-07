@@ -6,21 +6,27 @@ const url = require('url')
 const qs = require('querystring')
 const path = require('path')
 
-var users = []
+const {connectDB} = require('./db')
+let usersCollection
+connectDB().then(result => {
+    usersCollection = result.usersCollection
+    console.log('usersCollection is ready')
 
-function checkLogin(username, password) {
-    for(var i=0; i<users.length; i++) {
-        var cur = users[i]
-        if((cur.username == username) && (cur.password == password)) {
+    app.listen(8080, () => {
+        console.log('Server Running on port 8080....')
+    })
+})
+
+var sessionList = []
+
+function checkSession(username) {
+    for(var i=0; i<sessionList.length; i++) {
+        if(sessionList[i].username == username) {
             return true
         }
     }
     return false
 }
-
-app.listen(8080, () => {
-    console.log('Server Running on port 8080....')
-})
 
 app.get("/signup.html", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "signup.html"))
@@ -30,16 +36,21 @@ app.post('/signup', express.urlencoded(), (req,res) => {
     var query = req.body
     var hash = crypto.createHash('sha256')
     var hashedPassword = hash.update(query.password).digest('hex')
-
-    for(var i=0; i<users.length; i++) {
-        var cur = users[i]
-        if(cur.username == query.username) {
-            alert("Username is already taken please choose another.")
-            return
-        }  
-    }
-    users.push({'username':query.username, 'password':hashedPassword})
-    res.sendFile(path.join(__dirname, "public", "login.html"))
+    //Check for existing users
+    usersCollection.find({username: query.username}).toArray()
+        .then(existingUsers => {
+            if(existingUsers.length > 0) {
+                return res.send("Username is already taken. <a href='/signup.html'>Try again</a>")
+            }
+            //Add new user
+            return usersCollection.insertOne({username: query.username, password: hashedPassword})
+        })
+        .then(() => {
+            res.sendFile(path.join(__dirname, 'public', 'login.html'))
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 })
 
 app.get('/login.html', (req, res) => {
@@ -50,12 +61,22 @@ app.post('/login', express.urlencoded(), (req,res) => {
     var query = req.body
     var hash = crypto.createHash('sha256')
     var hashedPassword = hash.update(query.password).digest('hex')
-    if(checkLogin(query.username, hashedPassword)) {
-        res.sendFile(path.join(__dirname, "public", 'storefront.html'))
-    }
-    else {
-        res.sendFile(path.join(__dirname, "public", 'signup.html'))
-    }
+    //Attempt login.
+    usersCollection.find({username: query.username, password: hashedPassword}).toArray()
+        .then(usersFound => {
+            if(usersFound.length > 0) {
+                //Successful login
+                sessionList.push({username: query.username})
+                res.sendFile(path.join(__dirname, "public", 'storefront.html'))
+            }
+            else {
+                //Failed login attempt
+                res.send("Invalid username or password. <a href='/login.html'>Try again</a>")
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 })
 
 app.get('/storefront', (req, res) => {
