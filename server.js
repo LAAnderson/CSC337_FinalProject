@@ -8,6 +8,8 @@ const path = require('path')
 
 const {connectDB} = require('./db')
 let usersCollection
+
+//Connects Database to server.
 connectDB().then(result => {
     usersCollection = result.usersCollection
     console.log('usersCollection is ready')
@@ -19,6 +21,7 @@ connectDB().then(result => {
 
 var sessionList = []
 
+//List will hold everyone currently logged in.
 function checkSession(username) {
     for(var i=0; i<sessionList.length; i++) {
         if(sessionList[i].username == username) {
