@@ -9,9 +9,9 @@ async function connectDB() {
         console.log('Connected to MongoDB')
 
         var db = client.db(dbName)
-        var usersCollection = db.collection('users')
-
-        return {usersCollection}
+        
+        return {usersCollection: db.collection('users'),
+                gamesCollection: db.collection('games')}
     }
     catch(err) {
         console.log(err)

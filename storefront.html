@@ -15,6 +15,26 @@ TODO:
 <!DOCTYPE html>
 <html>
     <head>
+        <script>
+            async function fetchItems() {
+                try {
+                    const response = await fetch('http://localhost:8080/getproducts');
+                    const items = await response.json();
+                    const productspace= document.getElementById('productspace');
+
+                    items.forEach(item => {
+                        var product = document.createElement('div');
+                        product.setAttribute('class', 'product')
+                        product.textContent = `${item.name}: ${item.description}`;
+                        productspace.appendChild(product);
+                    });
+                } catch (error) {
+                    console.error('Error fetching items:', error);
+                }
+            }
+
+            fetchItems();
+        </script>
         <style>
             body {
                 margin-left: 0;
@@ -141,13 +161,6 @@ TODO:
                     
                 </div>
                 <div id="productspace" class="productspace">
-                    <div class="product"></div>
-                    <div class="product"></div>
-                    <div class="product"></div>
-                    <div class="product"></div>
-                    <div class="product"></div>
-                    <div class="product"></div> 
-                    <div class="product"></div>
                 </div> 
             </div>
             

@@ -7,12 +7,16 @@ const qs = require('querystring')
 const path = require('path')
 
 const {connectDB} = require('./db')
-let usersCollection
+var usersCollection
+var gamesCollection
 
 //Connects Database to server.
-connectDB().then(result => {
-    usersCollection = result.usersCollection
+connectDB().then(collections => {
+    usersCollection = collections.usersCollection
     console.log('usersCollection is ready')
+
+    gamesCollection = collections.gamesCollection
+    console.log('gamesCollection is ready')
 
     app.listen(8080, () => {
         console.log('Server Running on port 8080....')
@@ -82,8 +86,18 @@ app.post('/login', express.urlencoded(), (req,res) => {
         })
 })
 
-app.get('/storefront', (req, res) => {
+app.get('/storefront.html', (req, res) => {
+    res.sendFile(path.join(__dirname, "", 'storefront.html'))
+})
 
+app.get('/getproducts', async (req, res) => {
+    try {
+        const games = await gamesCollection.find({}).toArray();
+        res.json(games) 
+    } catch (err) {
+        console.error(err)
+        res.status(500)
+    }
 })
 
 app.get('/shoppingcart', (req, res) => {
