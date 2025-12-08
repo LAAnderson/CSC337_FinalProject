@@ -86,7 +86,7 @@ app.post('/login', express.urlencoded(), (req,res) => {
         })
 })
 
-app.get('/storefront.html', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "", 'storefront.html'))
 })
 

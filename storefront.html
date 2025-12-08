@@ -16,16 +16,43 @@ TODO:
 <html>
     <head>
         <script>
-            async function fetchItems() {
+            /*
+            each object in my collection is in the shape of the following:
+            {
+                "_id": { //<-- this is the field of the object i pass the addToCart() function
+                    "$oid": "69374468b5fd699d191e3e27"
+                },
+                "name": "...",
+                "description": "...",
+                "price": "...";
+                "img": "...";
+                "rating": "...";
+                "genres": [...]
+            }
+            
+            you should be able to get the game with its id and copy/paste the information into your db
+            */
+            function addToCart(gameID) {
+                // Jordan, please implement :)
+            }
+
+            async function fetchItems(query) {
                 try {
-                    const response = await fetch('http://localhost:8080/getproducts');
+                    const url_params = location.search
+                    const response = await fetch('http://localhost:8080/getproducts'+location.search);
                     const items = await response.json();
                     const productspace= document.getElementById('productspace');
 
                     items.forEach(item => {
                         var product = document.createElement('div');
                         product.setAttribute('class', 'product')
-                        product.textContent = `${item.name}: ${item.description}`;
+                        product.innerHTML = `
+                        <h3 style="text-align: center;">${product.name}</h3>
+                        <img width="100%" height="50%" src="${product.img}">
+                        <div style="display: grid; grid-template-columns: 33% 34% 33%;">
+                            <div style="text-align: center">Price:<br>$${product.price}</div>
+                            <div style="text-align: center">Rating:<br>${generateRating(product.rating)}</div>
+                            <div style="text-align: center"><button onclick="addToCart('${product._id}')">Purchase</button></div>`
                         productspace.appendChild(product);
                     });
                 } catch (error) {
@@ -116,36 +143,92 @@ TODO:
                 <form method="get">
                     <h3>Filter by Catagory</h3>
                     <p>Genre</p>
-                    <input type="checkbox" name="genre[]">
-                    <input type="checkbox" name="genre[]">
-                    <input type="checkbox" name="genre[]">
-                    <input type="checkbox" name="genre[]">
-                    <input type="checkbox" name="genre[]">
-                    <input type="checkbox" name="genre[]">
-                    <input type="checkbox" name="genre[]">
-                    <input type="checkbox" name="genre[]">
-                    <input type="checkbox" name="genre[]">
-                    <input type="checkbox" name="genre[]">
-                    <input type="checkbox" name="genre[]">
-                    <input type="checkbox" name="genre[]">
-                    <input type="checkbox" name="genre[]">
-                    <input type="checkbox" name="genre[]">
-                    <input type="checkbox" name="genre[]">
-                    <p>Rating</p>
-                    <input type="checkbox" name="rating[]">
-                    <input type="checkbox" name="rating[]">
-                    <input type="checkbox" name="rating[]">
-                    <input type="checkbox" name="rating[]">
-                    <input type="checkbox" name="rating[]">
-                    <p>Price</p>
-                    <input type="checkbox" name="price[]">
-                    <input type="checkbox" name="price[]">
-                    <input type="checkbox" name="price[]">
-                    <input type="checkbox" name="price[]">
-                    <input type="checkbox" name="price[]">
-                    <input type="checkbox" name="price[]">
+                    <input type="checkbox" id="action" name="genre[]" value="action">
+                    <label for="action">Action</label><br>
+
+                    <input type="checkbox" id="platformer" name="genre[]" value="platformer">
+                    <label for="platformer">Platformer</label><br>
+
+                    <input type="checkbox" id="shooter" name="genre[]" value="shooter">
+                    <label for="shooter">Shooter</label><br>
+
+                    <input type="checkbox" id="fps" name="genre[]" value="fps">
+                    <label for="fps">FPS</label><br>
+
+                    <input type="checkbox" id="hero_shooter" name="genre[]" value="hero shooter">
+                    <label for="hero_shooter">Hero Shooter</label><br>
+
+                    <input type="checkbox" id="fighting" name="genre[]" value="fighting">
+                    <label for="fighting">Fighting</label><br>
+
+                    <input type="checkbox" id="stealth" name="genre[]" value="stealth">
+                    <label for="stealth">Stealth</label><br>
+
+                    <input type="checkbox" id="survival" name="genre[]" value="survival">
+                    <label for="survival">Survival</label><br>
+
+                    <input type="checkbox" id="rhythm" name="genre[]" value="rhythm">
+                    <label for="rhythm">Rhythm</label><br>
+
+                    <input type="checkbox" id="battle_royal" name="genre[]" value="battle_royal">
+                    <label for="battle_royal">Battle Royal</label><br>
+
+                    <input type="checkbox" id="puzzle" name="genre[]" value="puzzle">
+                    <label for="puzzle">Puzzle</label><br>
+
+                    <input type="checkbox" id="rpg" name="genre[]" value="rpg">
+                    <label for="rpg">RPG</label><br>
+
+                    <input type="checkbox" id="racing" name="genre[]" value="racing">
+                    <label for="racing">Racing</label><br>
+
+                    <input type="checkbox" id="competative" name="genre[]" value="competative">
+                    <label for="competative">Competative</label><br>
+
+                    <input type="checkbox" id="open_world" name="genre[]" value="open_world">
+                    <label for="open_world">Open World</label><br>
+
+                    <input type="checkbox" id="sandbox" name="genre[]" value="sandbox">
+                    <label for="sandbox">Sandbox</label><br>
                     
-                    <p>....</p>
+
+                    <p>Rating</p>
+                    <input type="checkbox" id="rating0-1" name="rating[]" value="0-1">
+                    <label for="rating0-1">0-1 Stars</label><br>
+
+                    <input type="checkbox" id="rating1-2" name="rating[]" value="1-2">
+                    <label for="rating1-2">1-2 Stars</label><br>
+                    
+                    <input type="checkbox" id="rating2-3" name="rating[]" value="2-3">
+                    <label for="rating2-3">2-3 Stars</label><br>
+                    
+                    <input type="checkbox" id="rating3-4" name="rating[]" value="3-4">
+                    <label for="rating3-4">3-4 Stars</label><br>
+                    
+                    <input type="checkbox" id="rating4+" name="rating[]" value="4+">
+                    <label for="rating4+">4+ Stars</label><br>
+                    
+
+                    <p>Price</p>
+                    <input type="checkbox" id="price0-10" name="price[]" value="0-10">
+                    <label for="price0-10">$0-$9.99</label><br>
+
+                    <input type="checkbox" id="price10-20" name="price[]" value="10-20">
+                    <label for="price0-10">$10 - $19.99</label><br>
+
+                    <input type="checkbox" id="price20-30"name="price[]" value="20-30">
+                    <label for="price0-10">$20 - $29.99</label><br>
+
+                    <input type="checkbox" id="price40-40"name="price[]" value="30-40">
+                    <label for="price0-10">$30 - $39.99</label><br>
+
+                    <input type="checkbox" id="price40-50"name="price[]" value="40-50">
+                    <label for="price0-10">$40 - $49.99</label><br>
+
+                    <input type="checkbox" id="price50+"name="price[]" value="50+">
+                    <label for="price0-10">$50+</label><br>
+                    
+                    
                     <input type="submit" value="Filter">
                 </form>
             </div>
