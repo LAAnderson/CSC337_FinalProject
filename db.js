@@ -9,10 +9,20 @@ async function connectDB() {
         console.log('Connected to MongoDB')
 
         var db = client.db(dbName)
-        
-        return {usersCollection: db.collection('users'),
-                gamesCollection: db.collection('games'),
-                cartsCollection: db.collection('carts')}
+        var usersCollection = db.collection('users')
+        var gamesCollection = db.collection('games')
+
+        var existingAdmin = await usersCollection.findOne({username: 'Administrator'})
+        if (!existingAdmin) {
+            var adminUser = {
+                username: 'Administrator',
+                password: 'admin1234',
+                admin: true
+            }
+            await usersCollection.insertOne(adminUser)
+            console.log('Admin account created.')
+        }
+        return {usersCollection, gamesCollection}
     }
     catch(err) {
         console.log(err)
