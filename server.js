@@ -232,7 +232,7 @@ app.get('/getproducts', async (req, res) => {
 
 app.get('/images', (req, res) => {
     const filename = req.query.image;
-    const filepath = path.join(__dirname, 'images', filename);
+    const filepath = path.join(__dirname, filename);
     res.sendFile(filepath);
 });
 
