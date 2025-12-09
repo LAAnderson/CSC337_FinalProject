@@ -24,6 +24,7 @@ connectDB().then(collections => {
     })
 })
 
+//Session managemnet.
 var sessionList = []
 
 //List will hold everyone currently logged in.
@@ -36,12 +37,19 @@ function checkSession(username) {
     return false
 }
 
+
 app.use(express.static('public'));
 
+app.get('/style.css', (req, res) => {
+    res.sendFile(path.join(__dirname, 'style.css'))
+})
+
+//Signup page.
 app.get("/signup.html", (req, res) => {
     res.sendFile(path.join(__dirname, "public", 'signup.html'))
 })
 
+//Post signup saves users to the database.
 app.post('/signup', express.urlencoded(), (req,res) => {
     var query = req.body
     var hash = crypto.createHash('sha256')
@@ -53,20 +61,27 @@ app.post('/signup', express.urlencoded(), (req,res) => {
                 return res.send("Username is already taken. <a href='/signup.html'>Try again</a>")
             }
             //Add new user
-            return usersCollection.insertOne({username: query.username, password: hashedPassword})
+            return usersCollection.insertOne({username: query.username, password: hashedPassword, admin: false})
         })
         .then(() => {
             res.sendFile(path.join(__dirname, "public", 'login.html'))
         })
         .catch((err) => {
             console.log(err)
+            res.status(500).send("Error signing up")
         })
 })
 
+//Serves login page.
 app.get('/login.html', (req, res) => {
     res.sendFile(path.join(__dirname, "public", 'login.html'))
 })
 
+app.post('/login', express.urlencoded(), (req, res) => {
+    res.sendFile(path.join(__dirname, "public", 'login.html'))
+})
+
+//Logs user in and sends user to the storefront.
 app.post('/login', express.urlencoded(), (req,res) => {
     var query = req.body
     var hash = crypto.createHash('sha256')
@@ -76,7 +91,7 @@ app.post('/login', express.urlencoded(), (req,res) => {
         .then(usersFound => {
             if(usersFound.length > 0) {
                 //Successful login
-                sessionList.push({username: query.username})
+                sessionList.push({'username': query.username})
                 res.sendFile(path.join(__dirname, "public", 'storefront.html'))
             }
             else {
@@ -86,13 +101,26 @@ app.post('/login', express.urlencoded(), (req,res) => {
         })
         .catch((err) => {
             console.log(err)
+            res.status(500).send("Login error")
         })
 })
 
+//Logs the user out.
+app.get('/logout', (req, res) => {
+    var username = req.query.username
+    if(username) {
+        sessionList = sessionList.filter(s => s.username != username)
+        console.log('Logged out: ', username)
+    }
+    res.sendStatus(200)
+})
+
+//Home page. Serves storefront.
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "public", 'storefront.html'))
 })
 
+//Get Products.
 app.get('/getproducts', async (req, res) => {
     try {
         var targetGames
@@ -183,8 +211,14 @@ app.get('/getproducts', async (req, res) => {
     }
 })
 
+//Serves shopping cart page.
 app.get('/shoppingcart', (req, res) => {
-
+    var username = req.query.username
+    if(username && checkSession(username)) {
+        res.sendFile(path.join(__dirname, "public", 'shoppingcart.html'))
+    } else {
+        res.send("Please log in to view your cart. <a href='/login.html'>Log in</a>")
+    }
 })
 
 app.get('/search', (req, res) => {
