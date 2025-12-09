@@ -139,6 +139,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'storefront.html'))
 })
 
+app.get('/storefront.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'storefront.html'))
+})
+
 //Get Products.
 app.get('/getproducts', async (req, res) => {
     try {
@@ -248,6 +252,10 @@ app.get('/shoppingcart.html', (req, res) => {
     } else {
         res.send("Please log in to view your cart. <a href='/login.html'>Log in</a>")
     }
+})
+
+app.get('/checkout.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'checkout.html'))
 })
 
 app.get('/get_games', function(req, res){
