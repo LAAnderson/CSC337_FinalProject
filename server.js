@@ -244,6 +244,48 @@ app.get('/images', (req, res) => {
     res.sendFile(filepath);
 });
 
+
+app.post('/admin/addUser', express.json(), async (req, res) => {
+    const { username } = req.body
+
+    if (!username)
+        return res.status(400).send({ message: "Missing username" })
+
+    await usersCollection.insertOne({ username })
+    res.send({ message: "User added", username })
+})
+
+app.delete('/admin/removeUser', express.json(), async (req, res) => {
+    const { username } = req.body
+
+    if (!username)
+        return res.status(400).send({ message: "Missing username" })
+
+    const result = await usersCollection.deleteOne({ username })
+
+    if (result.deletedCount === 0)
+        return res.send({ message: "User not found" })
+
+    res.send({ message: "User removed", username })
+})
+
+app.put('/admin/changeProduct', express.json(), async (req, res) => {
+    const { productId, newName } = req.body
+
+    if (!productId || !newName)
+        return res.status(400).send({ message: "Missing fields" })
+
+    const result = await gamesCollection.updateOne(
+        { _id: productId },
+        { $set: { name: newName } }
+    )
+
+    if (result.matchedCount === 0)
+        return res.send({ message: "Product not found" })
+
+    res.send({ message: "Product updated", productId, newName })
+})
+
 //Serves shopping cart page.
 app.get('/shoppingcart.html', (req, res) => {
     var username = req.query.username
