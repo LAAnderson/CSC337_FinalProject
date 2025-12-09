@@ -1,4 +1,5 @@
 var {MongoClient} = require('mongodb')
+var crypto = require('crypto')
 
 var client = new MongoClient('mongodb://127.0.0.1:27017/')
 var dbName = 'videogamestore'
@@ -14,9 +15,11 @@ async function connectDB() {
 
         var existingAdmin = await usersCollection.findOne({username: 'Administrator'})
         if (!existingAdmin) {
+            var hash = crypto.createHash('sha256')
+            var hashedPassword = hash.update('admin1234').digest('hex')
             var adminUser = {
                 username: 'Administrator',
-                password: 'admin1234',
+                password: hashedPassword,
                 admin: true
             }
             await usersCollection.insertOne(adminUser)
