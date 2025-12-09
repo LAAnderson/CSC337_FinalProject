@@ -1,24 +1,35 @@
+<!--
+Author: Evan Messmer
+Course: CSC 337
+File:   login.html
+Purpose:    Login page for users and admin to log in to their account
+    to give access to the cart to make purchases.
+-->
 <!DOCTYPE html>
 <html>
     <head>
         <title>Login</title>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body class="auth-page">
+    <body class="auth_page">
         <header>
-            <div class="header-container">
+            <div class="header_container">
                 <h1>CSC Games</h1>
             </div>
         </header>
-        <div class="form-container">
+
+        <div class="form_container">
             <h2>Log in to get started</h2>
+
             <form action="/login" method="POST">
-                <input name="username" type="text" placeholder="Username" required><br>
-                <input name="password" type="password" placeholder="Password" required><br>
+                Username: <input name="username" type="text" required><br><br>
+                Password: <input name="password" type="password" placeholder="Password" required><br><br>
                 <button type="submit">Login</button>
             </form>
         </div>
+
         <p>Don't have an account?<br>Create an account? <a href="/signup.html">Sign up</a></p>
+        
         <footer>
             &copy; Copyright CSC 337
         </footer>

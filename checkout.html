@@ -1,39 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-            h1{
-                border: 2px solid salmon;
-                background-color: tan;
-                text-align: center;
-                position: absolute;
-                width: 100%;
-                height: 10%;
-                margin: 0;
-                top: 0;
-                left: 0;    
-                right: 0;
-                padding: 5px;
-            }
-            body{
-                background-color: wheat;
-            }
-            div{
-                text-align: center;
-                position: absolute;
-                width: 100%;
-                top: 13%;
-                left: 0;    
-                right: 0;
-            }
-        </style>
-        <h1>Purchase Complete!</h1>
+        <title>Purchase</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div>
+        <header>
+            <h1>CSC Games</h1>
+            <div class="header_right">
+                <a href="storefront.html">Store</a>
+                <a href="shoppingcart.html">Cart</a>
+            </div>
+        </header>
+        <div class="message">
+            <h1>Purchase Complete</h1>
             <p>Thank you for your purchase!</p>
-            <a href="storefront.html">Return Home</a>
         </div>
+        <footer>
+            &copy; Copyright CSC 337
+        </footer>
     </body>
-
 </html>

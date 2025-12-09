@@ -37,7 +37,7 @@ function checkSession(username) {
 }
 
 app.get("/signup.html", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "signup.html"))
+    res.sendFile(path.join(__dirname, "", 'signup.html'))
 })
 
 app.post('/signup', express.urlencoded(), (req,res) => {
@@ -54,7 +54,7 @@ app.post('/signup', express.urlencoded(), (req,res) => {
             return usersCollection.insertOne({username: query.username, password: hashedPassword})
         })
         .then(() => {
-            res.sendFile(path.join(__dirname, 'public', 'login.html'))
+            res.sendFile(path.join(__dirname, "", 'login.html'))
         })
         .catch((err) => {
             console.log(err)
@@ -62,7 +62,7 @@ app.post('/signup', express.urlencoded(), (req,res) => {
 })
 
 app.get('/login.html', (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "login.html"))
+    res.sendFile(path.join(__dirname, "", 'login.html'))
 })
 
 app.post('/login', express.urlencoded(), (req,res) => {
@@ -75,7 +75,7 @@ app.post('/login', express.urlencoded(), (req,res) => {
             if(usersFound.length > 0) {
                 //Successful login
                 sessionList.push({username: query.username})
-                res.sendFile(path.join(__dirname, "public", 'storefront.html'))
+                res.sendFile(path.join(__dirname, "", 'storefront.html'))
             }
             else {
                 //Failed login attempt
