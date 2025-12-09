@@ -38,15 +38,13 @@ function checkSession(username) {
 }
 
 
-app.use(express.static('public'));
-
 app.get('/style.css', (req, res) => {
     res.sendFile(path.join(__dirname, 'style.css'))
 })
 
 //Signup page.
 app.get("/signup.html", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", 'signup.html'))
+    res.sendFile(path.join(__dirname, 'signup.html'))
 })
 
 //Post signup saves users to the database.
@@ -64,7 +62,7 @@ app.post('/signup', express.urlencoded(), (req,res) => {
             return usersCollection.insertOne({username: query.username, password: hashedPassword, admin: false})
         })
         .then(() => {
-            res.sendFile(path.join(__dirname, "public", 'login.html'))
+            res.sendFile(path.join(__dirname, 'login.html'))
         })
         .catch((err) => {
             console.log(err)
@@ -74,11 +72,11 @@ app.post('/signup', express.urlencoded(), (req,res) => {
 
 //Serves login page.
 app.get('/login.html', (req, res) => {
-    res.sendFile(path.join(__dirname, "public", 'login.html'))
+    res.sendFile(path.join(__dirname, 'login.html'))
 })
 
 app.post('/login', express.urlencoded(), (req, res) => {
-    res.sendFile(path.join(__dirname, "public", 'login.html'))
+    res.sendFile(path.join(__dirname, 'login.html'))
 })
 
 //Logs user in and sends user to the storefront.
@@ -92,7 +90,7 @@ app.post('/login', express.urlencoded(), (req,res) => {
             if(usersFound.length > 0) {
                 //Successful login
                 sessionList.push({'username': query.username})
-                res.sendFile(path.join(__dirname, "public", 'storefront.html'))
+                res.sendFile(path.join(__dirname, 'storefront.html'))
             }
             else {
                 //Failed login attempt
@@ -117,7 +115,7 @@ app.get('/logout', (req, res) => {
 
 //Home page. Serves storefront.
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, "public", 'storefront.html'))
+    res.sendFile(path.join(__dirname, 'storefront.html'))
 })
 
 //Get Products.
@@ -215,7 +213,7 @@ app.get('/getproducts', async (req, res) => {
 app.get('/shoppingcart', (req, res) => {
     var username = req.query.username
     if(username && checkSession(username)) {
-        res.sendFile(path.join(__dirname, "public", 'shoppingcart.html'))
+        res.sendFile(path.join(__dirname, 'shoppingcart.html'))
     } else {
         res.send("Please log in to view your cart. <a href='/login.html'>Log in</a>")
     }
