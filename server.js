@@ -45,7 +45,7 @@ function findPromise(collName, search){
     return new Promise(function(resolve, reject){
         client.connect()
         .then(function(){
-            var db = client.db('gameDB')
+            var db = client.db('gamerDB')
             var coll = db.collection(collName)
             return coll.find(search).toArray()
         })
