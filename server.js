@@ -75,10 +75,6 @@ app.get('/login.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'login.html'))
 })
 
-app.post('/login', express.urlencoded(), (req, res) => {
-    res.sendFile(path.join(__dirname, 'login.html'))
-})
-
 //Logs user in and sends user to the storefront.
 app.post('/login', express.urlencoded(), (req,res) => {
     var query = req.body
@@ -90,7 +86,7 @@ app.post('/login', express.urlencoded(), (req,res) => {
             if(usersFound.length > 0) {
                 //Successful login
                 sessionList.push({'username': query.username})
-                res.sendFile(path.join(__dirname, 'storefront.html'))
+                res.redirect('/')
             }
             else {
                 //Failed login attempt
@@ -134,7 +130,7 @@ app.get('/getproducts', async (req, res) => {
             var priceObj = null
 
             if (genres.length > 0)
-                genreObj = {"genre": {"$in": genres}}
+                genreObj = {"genres": {"$in": genres}}
 
             if (ratingRanges.length > 0) {
                 ratingObj = {"$or": []}
@@ -193,15 +189,19 @@ app.get('/getproducts', async (req, res) => {
             if (priceObj)
                 targetGames.$and.push(priceObj);
 
+            console.log(genreObj)
+            console.log(ratingObj)
+            console.log(priceObj)
+            
             if (!(genreObj || ratingObj || priceObj))
                 targetGames = {};
         }
 
-
+        console.log(targetGames)
         console.log(JSON.stringify(targetGames))
 
     
-        const games = await gamesCollection.find(targetGames, {"collation": {"locale": 'en', "strength": 1, "caseLevel": true}}).toArray();
+        const games = await gamesCollection.find(targetGames).toArray();
         res.json(games) 
     } catch (err) {
         console.error(err)
@@ -209,8 +209,14 @@ app.get('/getproducts', async (req, res) => {
     }
 })
 
+app.get('/images', (req, res) => {
+    const filename = req.query.image;
+    const filepath = path.join(__dirname, 'images', filename);
+    res.sendFile(filepath);
+});
+
 //Serves shopping cart page.
-app.get('/shoppingcart', (req, res) => {
+app.get('/shoppingcart.html', (req, res) => {
     var username = req.query.username
     if(username && checkSession(username)) {
         res.sendFile(path.join(__dirname, 'shoppingcart.html'))

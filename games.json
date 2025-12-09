@@ -1,0 +1,312 @@
+[
+  {
+    "name": "The Legend of Zelda: Breath of the Wild",
+    "description": "An open-world adventure focused on exploration and freedom.",
+    "price": 59.99,
+    "img": "zelda_botw.jpg",
+    "rating": 4.9,
+    "genres": ["action", "open_world", "sandbox"]
+  },
+  {
+    "name": "Elden Ring",
+    "description": "A dark fantasy open-world RPG with challenging combat.",
+    "price": 59.99,
+    "img": "elden_ring.jpg",
+    "rating": 4.8,
+    "genres": ["action", "rpg", "open_world"]
+  },
+  {
+    "name": "Red Dead Redemption 2",
+    "description": "A story-driven open-world western action game.",
+    "price": 49.99,
+    "img": "rdr2.jpg",
+    "rating": 4.9,
+    "genres": ["action", "open_world"]
+  },
+  {
+    "name": "The Witcher 3: Wild Hunt",
+    "description": "A massive fantasy RPG with narrative depth.",
+    "price": 39.99,
+    "img": "witcher_3.jpg",
+    "rating": 4.9,
+    "genres": ["rpg", "action", "open_world"]
+  },
+  {
+    "name": "God of War (2018)",
+    "description": "A cinematic action game inspired by Norse mythology.",
+    "price": 39.99,
+    "img": "god_of_war.jpg",
+    "rating": 4.8,
+    "genres": ["action"]
+  },
+  {
+    "name": "Minecraft",
+    "description": "A sandbox game focused on creativity and survival.",
+    "price": 26.95,
+    "img": "minecraft.jpg",
+    "rating": 4.5,
+    "genres": ["sandbox", "survival", "open_world"]
+  },
+  {
+    "name": "Grand Theft Auto V",
+    "description": "An open-world crime game set in Los Santos.",
+    "price": 29.99,
+    "img": "gta_v.jpg",
+    "rating": 4.7,
+    "genres": ["action", "open_world", "sandbox"]
+  },
+  {
+    "name": "Hollow Knight",
+    "description": "A challenging action platformer with exploration.",
+    "price": 14.99,
+    "img": "hollow_knight.jpg",
+    "rating": 4.7,
+    "genres": ["action", "platformer"]
+  },
+  {
+    "name": "Stardew Valley",
+    "description": "A relaxing sandbox farming game.",
+    "price": 14.99,
+    "img": "stardew_valley.jpg",
+    "rating": 4.6,
+    "genres": ["sandbox"]
+  },
+  {
+    "name": "Dark Souls III",
+    "description": "A punishing action RPG with deep combat.",
+    "price": 39.99,
+    "img": "dark_souls_3.jpg",
+    "rating": 4.6,
+    "genres": ["action", "rpg"]
+  },
+
+  {
+    "name": "Sekiro: Shadows Die Twice",
+    "description": "A precision-focused action game with stealth elements.",
+    "price": 59.99,
+    "img": "sekiro.jpg",
+    "rating": 4.8,
+    "genres": ["action", "stealth"]
+  },
+  {
+    "name": "Bloodborne",
+    "description": "A gothic action RPG emphasizing aggressive combat.",
+    "price": 19.99,
+    "img": "bloodborne.jpg",
+    "rating": 4.7,
+    "genres": ["action", "rpg"]
+  },
+  {
+    "name": "Portal 2",
+    "description": "A first-person puzzle game with physics-based mechanics.",
+    "price": 9.99,
+    "img": "portal_2.jpg",
+    "rating": 4.9,
+    "genres": ["puzzle"]
+  },
+  {
+    "name": "Half-Life 2",
+    "description": "A narrative-driven first-person shooter.",
+    "price": 9.99,
+    "img": "half_life_2.jpg",
+    "rating": 4.9,
+    "genres": ["fps", "shooter"]
+  },
+  {
+    "name": "DOOM Eternal",
+    "description": "A fast-paced shooter focused on relentless action.",
+    "price": 59.99,
+    "img": "doom_eternal.jpg",
+    "rating": 4.6,
+    "genres": ["fps", "shooter", "action"]
+  },
+  {
+    "name": "Hades",
+    "description": "An action RPG with roguelike progression.",
+    "price": 24.99,
+    "img": "hades.jpg",
+    "rating": 4.7,
+    "genres": ["action", "rpg"]
+  },
+  {
+    "name": "Celeste",
+    "description": "A precision platformer about perseverance.",
+    "price": 19.99,
+    "img": "celeste.jpg",
+    "rating": 4.6,
+    "genres": ["platformer"]
+  },
+  {
+    "name": "Apex Legends",
+    "description": "A hero-based competitive battle royale shooter.",
+    "price": 0.0,
+    "img": "apex_legends.jpg",
+    "rating": 4.4,
+    "genres": ["hero_shooter", "battle_royal", "fps", "competative"]
+  },
+
+  {
+    "name": "Call of Duty: Modern Warfare",
+    "description": "A realistic military first-person shooter.",
+    "price": 59.99,
+    "img": "cod_mw.jpg",
+    "rating": 4.3,
+    "genres": ["fps", "shooter", "competative"]
+  },
+  {
+    "name": "Valorant",
+    "description": "A tactical hero-based competitive shooter.",
+    "price": 0.0,
+    "img": "valorant.jpg",
+    "rating": 4.5,
+    "genres": ["hero_shooter", "fps", "competative"]
+  },
+  {
+    "name": "Overwatch 2",
+    "description": "A team-based hero shooter.",
+    "price": 0.0,
+    "img": "overwatch_2.jpg",
+    "rating": 4.1,
+    "genres": ["hero_shooter", "competative"]
+  },
+  {
+    "name": "Counter-Strike 2",
+    "description": "A competitive tactical first-person shooter.",
+    "price": 0.0,
+    "img": "cs2.jpg",
+    "rating": 4.6,
+    "genres": ["fps", "shooter", "competative"]
+  },
+  {
+    "name": "Rainbow Six Siege",
+    "description": "A tactical shooter emphasizing strategy.",
+    "price": 19.99,
+    "img": "r6_siege.jpg",
+    "rating": 4.4,
+    "genres": ["fps", "shooter", "competative"]
+  },
+
+  {
+    "name": "Assassin's Creed Valhalla",
+    "description": "An action game set in a Viking open world.",
+    "price": 59.99,
+    "img": "ac_valhalla.jpg",
+    "rating": 4.3,
+    "genres": ["action", "open_world", "stealth"]
+  },
+  {
+    "name": "Metal Gear Solid V",
+    "description": "A stealth-focused open-world action game.",
+    "price": 29.99,
+    "img": "mgsv.jpg",
+    "rating": 4.6,
+    "genres": ["stealth", "action", "open_world"]
+  },
+  {
+    "name": "Far Cry 5",
+    "description": "An open-world shooter set in rural America.",
+    "price": 29.99,
+    "img": "far_cry_5.jpg",
+    "rating": 4.2,
+    "genres": ["shooter", "open_world", "fps"]
+  },
+  {
+    "name": "Skyrim",
+    "description": "A classic fantasy open-world RPG.",
+    "price": 39.99,
+    "img": "skyrim.jpg",
+    "rating": 4.8,
+    "genres": ["rpg", "open_world"]
+  },
+  {
+    "name": "Fallout 4",
+    "description": "A post-apocalyptic open-world RPG.",
+    "price": 29.99,
+    "img": "fallout_4.jpg",
+    "rating": 4.3,
+    "genres": ["rpg", "open_world", "shooter"]
+  },
+
+  {
+    "name": "Super Mario Odyssey",
+    "description": "A globe-trotting 3D platformer.",
+    "price": 59.99,
+    "img": "mario_odyssey.jpg",
+    "rating": 4.9,
+    "genres": ["platformer"]
+  },
+  {
+    "name": "Super Smash Bros. Ultimate",
+    "description": "A massive competitive fighting game.",
+    "price": 59.99,
+    "img": "smash_ultimate.jpg",
+    "rating": 4.8,
+    "genres": ["fighting", "competative"]
+  },
+  {
+    "name": "Street Fighter 6",
+    "description": "A modern competitive fighting game.",
+    "price": 59.99,
+    "img": "sf6.jpg",
+    "rating": 4.6,
+    "genres": ["fighting", "competative"]
+  },
+  {
+    "name": "Tekken 8",
+    "description": "A fast-paced 3D fighting game.",
+    "price": 69.99,
+    "img": "tekken_8.jpg",
+    "rating": 4.5,
+    "genres": ["fighting", "competative"]
+  },
+
+  {
+    "name": "Forza Horizon 5",
+    "description": "An open-world racing experience.",
+    "price": 59.99,
+    "img": "forza_horizon_5.jpg",
+    "rating": 4.7,
+    "genres": ["racing", "open_world"]
+  },
+  {
+    "name": "Gran Turismo 7",
+    "description": "A realistic racing simulator.",
+    "price": 69.99,
+    "img": "gt7.jpg",
+    "rating": 4.5,
+    "genres": ["racing"]
+  },
+
+  {
+    "name": "Resident Evil 4 Remake",
+    "description": "A survival horror action shooter.",
+    "price": 59.99,
+    "img": "re4_remake.jpg",
+    "rating": 4.7,
+    "genres": ["action", "shooter", "survival"]
+  },
+  {
+    "name": "The Last of Us Part I",
+    "description": "A narrative-driven survival action game.",
+    "price": 69.99,
+    "img": "tlou_part1.jpg",
+    "rating": 4.8,
+    "genres": ["action", "survival"]
+  },
+  {
+    "name": "Dead Space Remake",
+    "description": "A sci-fi survival horror shooter.",
+    "price": 59.99,
+    "img": "dead_space.jpg",
+    "rating": 4.6,
+    "genres": ["survival", "shooter"]
+  },
+  {
+    "name": "Subnautica",
+    "description": "A survival sandbox game set underwater.",
+    "price": 29.99,
+    "img": "subnautica.jpg",
+    "rating": 4.6,
+    "genres": ["survival", "sandbox", "open_world"]
+  }
+]
