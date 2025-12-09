@@ -37,6 +37,27 @@ function checkSession(username) {
     return false
 }
 
+function findPromise(collName, search){
+    return new Promise(function(resolve, reject){
+        client.connect()
+        .then(function(){
+            var db = client.db('gameDB')
+            var coll = db.collection(collName)
+            return coll.find(search).toArray()
+        })
+        .then(function(arr){
+            console.log(arr)
+            resolve(arr)
+        })
+        .catch(function(err){
+            console.log(err)
+            reject(err)
+        })
+        .finally(function(){
+            client.close()
+        })
+    }) 
+}
 
 app.get('/style.css', (req, res) => {
     res.sendFile(path.join(__dirname, 'style.css'))
