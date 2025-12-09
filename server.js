@@ -139,6 +139,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'storefront.html'))
 })
 
+app.get('/storefront.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'storefront.html'))
+})
+
 //Get Products.
 app.get('/getproducts', async (req, res) => {
     try {
