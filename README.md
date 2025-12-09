@@ -21,3 +21,7 @@ Follow the steps below to install dependencies and run the project.
 4. Start the server:
 node server.js
 The application will run at http://localhost:8080/
+
+5. To access Admin features on login use:
+  username: Administrator
+  password: admin1234
