@@ -7,7 +7,20 @@
                 try{
                     var res = await fetch('get_games')
                     var p = document.getElementById('my_p')
-                    p.innerHTML = JSON.stringify(await res.json())
+                    var data = await res.json()
+                    for(var j=0;j<data.length;j++){
+                        var keys = Object.keys(data[j])
+                        var row = document.createElement('tr')
+                        for(var  i=0;i<keys.length;i++){
+                            var text = document.createTextNode(keys[i] + ":" + data[j][keys[i]])
+
+                            var table_data = document.createElement('td')
+                            table_data.appendChild(text)
+                            row.appendChild(table_data)
+                        }
+                        var table = document.getElementById('my_table')
+                        table.appendChild(row)
+                    }
                 }
                 catch(err){
                     console.log(err)
@@ -45,4 +58,5 @@
             &copy; Copyright CSC 337
         </footer>
     </body>
+
 </html>
