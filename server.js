@@ -10,6 +10,10 @@ const {connectDB} = require('./db')
 var usersCollection
 var gamesCollection
 
+var {MongoClient} = require('mongodb')
+
+var client = new MongoClient('mongodb://127.0.0.1:27017/')
+
 //Connects Database to server.
 connectDB().then(collections => {
     usersCollection = collections.usersCollection
