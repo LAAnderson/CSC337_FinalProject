@@ -1,49 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-            h1{
-                border: 2px solid salmon;
-                background-color: tan;
-                text-align: center;
-                position: absolute;
-                width: 40%;
-                height: 100%;
-                margin: 0;
-                top: 0;
-                left: 0;    
-                right: 0;
-                padding: 25px;
-            }
-            div{
-                border: 2px solid salmon;
-                background-color: cornsilk;
-                position: absolute;
-                width: 30%;
-                top: 14%;
-                left: 5%;
-                padding: 15px;
-            }
-            form{
-                border: 2px solid salmon;
-                background-color: wheat;
-                position: absolute;
-                width: 60%;
-                height: 100%;
-                top: 0;
-                left: 43%;
-                padding: 10px;
-            }
-            span{
-                background-color: aquamarine;
-                position: absolute;
-                margin: 0;
-
-            }
-            input{
-                margin: 5px;
-            }
-        </style>
+        <link rel="stylesheet" href="style.css">
         <script>
             async function getGames(){
                 try{
@@ -56,23 +14,36 @@
                 }
             }
         </script>
-        <h1>Your cart</h1>
-        <span>
-            <a href="store.html">products (home)</a>
-        </span>
     </head>
     <body onload="getGames()">
-        <div>
-            <p id="my_p"></p>
+        <header>
+            <div>
+                <h1>CSC Games</h1>
+            </div>
+            <div class="header_right">
+                <a href="storefront.html">Store</a>
+                <a href="shoppingcart.html">Cart</a>
+            </div>
+        </header>
+        <div class="cart_page_container">
+            <div class="cart_container">
+                <h1>Your cart</h1>
+                <p id="my_p"></p>
+            </div>
+
+            <form action="checkout.html" method="POST" class="checkout_container">
+                <h1>Checkout</h1>
+                Credit Card Number <input type="text" name="ccnum"><br>
+                Expiration Date <input type="text" name="expirationDate"><br>
+                Three Digit Security Code <input type="text" name="securityCode"><br>
+                First Name <input type="text" name="firstName"><br>
+                Last Name <input type="text" name="lastName"><br>
+                Billing Address <input type="text" name="billingAddress" id="billingAddress"><br>
+                <input type="submit" value="checkout">  
+            </form>
         </div>
-        <form action="checkout.html" method="POST">
-            Credit Card Number <input type="text" name="ccnum"><br>
-            Expiration Date <input type="text" name="expirationDate">
-            Three Digit Security Code <input type="text" name="securityCode"><br>
-            First Name <input type="text" name="firstName">
-            Last Name <input type="text" name="lastName"><br>
-            Billing Address <input type="text" name="billingAddress" id="billingAddress"><br>
-            <input type="submit" value="checkout">  
-        </form>
+        <footer>
+            &copy; Copyright CSC 337
+        </footer>
     </body>
 </html>
