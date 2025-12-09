@@ -3,6 +3,26 @@
     <head>
         <link rel="stylesheet" href="style.css">
         <script>
+            async function fetchCart() {
+                username = window.localStorage.getItem("username")
+                try {
+                    const response = await fetch('http://localhost:8080/getcart/?username=' + username)
+                    const items = await response.json();
+                    const userCart = document.getElementById('my_table');
+
+                    items.forEach(item => {
+                        var product = document.createElement('tr');
+                        product.setAttribute('display', 'inline-block')
+                        product.innerHTML = `
+                        <img src="${item.img}">
+                        <p>${item.name}, $${item.price}</p>
+                        `
+                        productspace.appendChild(product);
+                    });
+                } catch (error) {
+                    console.error('Error fetching items:', error);
+                }
+            }
             async function getGames(){
                 try{
                     var res = await fetch('get_games')
@@ -29,7 +49,7 @@
             }
         </script>
     </head>
-    <body onload="getGames()">
+    <body onload="fetchCart()">
         <header>
             <h1>CSC Games</h1>
             <div class="header_right">
@@ -42,9 +62,7 @@
             <div class="cart_container">
                 <h1>Your cart</h1>
                 <table id="my_table">
-                <tr>
-                    <td></td>
-                </tr>
+                
                 </table>
             </div>
 

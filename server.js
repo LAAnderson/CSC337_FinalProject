@@ -9,6 +9,7 @@ const path = require('path')
 const {connectDB} = require('./db')
 var usersCollection
 var gamesCollection
+var cartsCollection
 
 var {MongoClient} = require('mongodb')
 
@@ -22,6 +23,9 @@ connectDB().then(collections => {
     gamesCollection = collections.gamesCollection
     gamesCollection.createIndex({"name": "text"})
     console.log('gamesCollection is ready')
+
+    cartsCollection = collections.cartsCollection
+    console.log('cartsCollection is ready')
 
     app.listen(8080, () => {
         console.log('Server Running on port 8080....')
@@ -316,6 +320,13 @@ app.get('/shoppingcart.html', (req, res) => {
         res.send("Please log in to view your cart. <a href='/login.html'>Log in</a>")
     }
 })
+
+app.get('/getcart', async (req, res) => {
+    const user = req.query.username;
+
+    const cart = await cartsCollection.find({"user": user}).toArray()
+    res.json(cart)
+});
 
 app.post('/checkout.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'checkout.html'))

@@ -11,7 +11,8 @@ async function connectDB() {
         var db = client.db(dbName)
         
         return {usersCollection: db.collection('users'),
-                gamesCollection: db.collection('games')}
+                gamesCollection: db.collection('games'),
+                cartsCollection: db.collection('carts')}
     }
     catch(err) {
         console.log(err)
