@@ -1,89 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8" />
     <title>Admin Management Page</title>
     <style>
         body {
-font-family: Arial, sans-serif;
-background: #000;
-margin: 0;
-padding: 0;
-color: #ddd;
-}
+            font-family: Arial, sans-serif;
+            background: #000;
+            margin: 0;
+            padding: 0;
+            color: #ddd;
+        }
 
-.header {
-background: #265f52;
-padding: 20px;
-color: white;
-font-size: 32px;
-font-weight: bold;
-border-bottom: 4px solid #1b3f36;
-}
+        .header {
+            background: #265f52;
+            padding: 20px;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            border-bottom: 4px solid #1b3f36;
+        }
 
-
-.container {
-max-width: 900px;
-margin: 30px auto;
-background: #0f0f0f;
-padding: 25px;
-border-radius: 12px;
-border: 2px solid #20483f;
-box-shadow: 0 0 20px rgba(0,255,200,0.1);
-}
-
-
-h2 {
-text-align: center;
-color: #c7e7dd;
-}
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #0f0f0f;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #20483f;
+            box-shadow: 0 0 20px rgba(0,255,200,0.1);
+        }
 
 
-.section {
-margin-top: 35px;
-padding: 20px;
-background: #1a1a1a;
-border: 1px solid #1f6c5d;
-border-radius: 10px;
-}
+        h2 {
+            text-align: center;
+            color: #c7e7dd;
+        }
 
+        .section {
+            margin-top: 35px;
+            padding: 20px;
+            background: #1a1a1a;
+            border: 1px solid #1f6c5d;
+            border-radius: 10px;
+        }
 
-label {
-display: block;
-margin-bottom: 8px;
-font-weight: bold;
-color: #b0e0d2;
-}
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #b0e0d2;
+        }
 
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: #333;
+            color: #eee;
+            border: 1px solid #3d8b76;
+            border-radius: 6px;
+            margin-bottom: 18px;
+        }
 
-input, select {
-width: 100%;
-padding: 12px;
-background: #333;
-color: #eee;
-border: 1px solid #3d8b76;
-border-radius: 6px;
-margin-bottom: 18px;
-}
+        button {
+            background: #3d8b76;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.3s;
+        }
 
-
-button {
-background: #3d8b76;
-color: white;
-padding: 10px 20px;
-border-radius: 6px;
-border: none;
-cursor: pointer;
-font-size: 15px;
-transition: 0.3s;
-}
-
+        .message {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            background: #265f52;
+            color: white;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="header">Admin Panel</div>
     <div class="container">
         <h1>Admin / Management Page</h1>
+
         <div class="section">
             <h2>Add User</h2>
             <label for="add-username">Username</label>
@@ -91,7 +94,8 @@ transition: 0.3s;
 
             <label for="add-email">Email</label>
             <input type="email" id="add-email" placeholder="Enter email" />
-            <button onclick="alert('User added!')">Add User</button>
+            <button onclick="addUser()">Add User</button>
+            <div id="add-user-message" class="message"></div>
         </div>
 
         <div class="section">
@@ -100,27 +104,166 @@ transition: 0.3s;
             <select id="remove-user-select">
                 <option>Choose a user...</option>
             </select>
-            <button onclick="alert('User removed!')">Remove User</button>
+            <button onclick="removeUser()">Remove User</button>
+            <div id="remove-user-message" class="message"></div>
         </div>
 
         <div class="section">
             <h2>Change Products</h2>
+
             <label for="product-select">Select Product</label>
             <select id="product-select">
                 <option>Choose a product...</option>
             </select>
 
-
             <label for="product-name">New Product Name</label>
             <input type="text" id="product-name" placeholder="Enter new product name" />
-
 
             <label for="product-price">New Price</label>
             <input type="number" id="product-price" placeholder="Enter new price" />
 
-
-            <button onclick="alert('Product updated!')">Save Changes</button>
+            <button onclick="updateProduct()">Save Changes</button>
+            <div id="product-message" class="message"></div>
         </div>
     </div>
+
+    <script>
+        let users = [];
+        let products = [
+            { name: "Assasians Creed Valhalla", price: 10 },
+            { name: "Apex Legends", price: 10 },
+            { name: "Bloodborne", price: 10 },
+            { name: "Celeste", price: 10 },
+            { name: "Call of Duty Modern Warfare", price: 10 },
+            { name: "CS2", price: 10 },
+            { name: "Dark Souls 3", price: 10 },
+            { name: "Dead Space", price: 10 },
+            { name: "Doom Eternal", price: 10 },
+            { name: "Elden Ring", price: 10 },
+            { name: "Fallout 4", price: 10 },
+            { name: "Forza Horizon 5", price: 10 },
+            { name: "Frown", price: 10 },
+            { name: "God of War", price: 10 },
+            { name: "GT7", price: 10 },
+            { name: "GTA 5", price: 10 },
+            { name: "Hades", price: 10 },
+            { name: "Half Life 2", price: 10 },
+            { name: "Hollow Knight", price: 10 },
+            { name: "Mario Odyssey", price: 10 },
+            { name: "MGSV", price: 10 },
+            { name: "Minecraft", price: 10 },
+            { name: "Overwatch", price: 10 },
+            { name: "Portal 2", price: 10 },
+            { name: "Rainbow 6 Seige", price: 10 },
+            { name: "Red Dead Redemption 2", price: 10 },
+            { name: "Resident Evil 4 Remake", price: 10 },
+            { name: "Sekiro", price: 10 },
+            { name: "SFG6", price: 10 },
+            { name: "Skyrim", price: 10 },
+            { name: "Smash Ultimate", price: 10 },
+            { name: "Stardew Valley", price: 10 },
+            { name: "Subnautica", price: 10 },
+            { name: "Tekken 8", price: 10 },
+            { name: "The Last of us Part 1", price: 10 },
+            { name: "Valorant", price: 10 },
+            { name: "Witcher 3", price: 10 },
+            { name: "Zelda Breath of the Wild", price: 10 }
+            
+
+        ];
+
+        function showMessage(elementId, text) {
+            const box = document.getElementById(elementId);
+            box.style.display = "block";
+            box.textContent = text;
+            setTimeout(() => box.style.display = "none", 2500);
+        }
+
+        function refreshUserList() {
+            const removeSelect = document.getElementById("remove-user-select");
+            removeSelect.innerHTML = "<option>Choose a user...</option>";
+
+            users.forEach((user, index) => {
+                const option = document.createElement("option");
+                option.value = index;
+                option.textContent = user.username + " (" + user.email + ")";
+                removeSelect.appendChild(option);
+            });
+        }
+
+        function refreshProductList() {
+            const productSelect = document.getElementById("product-select");
+            productSelect.innerHTML = "<option>Choose a product...</option>";
+
+            products.forEach((prod, index) => {
+                const option = document.createElement("option");
+                option.value = index;
+                option.textContent = prod.name + " - $" + prod.price;
+                productSelect.appendChild(option);
+            });
+        }
+
+        refreshUserList();
+        refreshProductList();
+
+        function addUser() {
+            const username = document.getElementById("add-username").value;
+            const email = document.getElementById("add-email").value;
+
+            if (!username || !email) {
+                showMessage("add-user-message", "Please fill out all fields.");
+                return;
+            }
+
+            users.push({ username, email });
+            refreshUserList();
+
+            showMessage("add-user-message", "User added successfully!");
+
+            document.getElementById("add-username").value = "";
+            document.getElementById("add-email").value = "";
+        }
+
+        function removeUser() {
+            const index = document.getElementById("remove-user-select").value;
+
+            if (index === "Choose a user...") {
+                showMessage("remove-user-message", "Please select a user.");
+                return;
+            }
+
+            users.splice(index, 1);
+            refreshUserList();
+
+            showMessage("remove-user-message", "User removed!");
+        }
+
+        function updateProduct() {
+            const index = document.getElementById("product-select").value;
+            const newName = document.getElementById("product-name").value;
+            const newPrice = document.getElementById("product-price").value;
+
+            if (index === "Choose a product...") {
+                showMessage("product-message", "Please select a product.");
+                return;
+            }
+
+            if (!newName || !newPrice) {
+                showMessage("product-message", "Fill in name and price!");
+                return;
+            }
+
+            products[index].name = newName;
+            products[index].price = Number(newPrice);
+
+            refreshProductList();
+
+            showMessage("product-message", "Product updated!");
+
+            document.getElementById("product-name").value = "";
+            document.getElementById("product-price").value = "";
+        }
+    </script>
+
 </body>
 </html>
