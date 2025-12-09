@@ -6,7 +6,6 @@
             async function getGames(){
                 try{
                     var res = await fetch('get_games')
-                    var p = document.getElementById('my_p')
                     var data = await res.json()
                     for(var j=0;j<data.length;j++){
                         var keys = Object.keys(data[j])
@@ -60,3 +59,4 @@
     </body>
 
 </html>
+
