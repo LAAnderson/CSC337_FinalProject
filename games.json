@@ -308,5 +308,13 @@
     "img": "subnautica.jpg",
     "rating": 4.6,
     "genres": ["survival", "sandbox", "open_world"]
+  },
+  {
+    "name": "The Worst Game in the World",
+    "description": "An absolutely terrible game not worth playing.",
+    "price": 99.99,
+    "img": "frown.jpg",
+    "rating": 0.2,
+    "genres": ["battle_royal", "competative", "sandbox", "shooter", "stealth"]
   }
 ]
