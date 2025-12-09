@@ -11,12 +11,14 @@
                         var keys = Object.keys(data[j])
                         var row = document.createElement('tr')
                         for(var  i=0;i<keys.length;i++){
+                            if(keys[i] != '_id'){
                             var text = document.createTextNode(keys[i] + ":" + data[j][keys[i]])
 
                             var table_data = document.createElement('td')
                             table_data.appendChild(text)
                             row.appendChild(table_data)
                         }
+                    }
                         var table = document.getElementById('my_table')
                         table.appendChild(row)
                     }
@@ -59,5 +61,6 @@
     </body>
 
 </html>
+
 
 
