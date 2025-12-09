@@ -110,8 +110,12 @@ app.post('/login', express.urlencoded(), (req,res) => {
         .then(usersFound => {
             if(usersFound.length > 0) {
                 //Successful login
-                sessionList.push({'username': query.username})
-                res.redirect('/')
+                sessionList.push({'username': query.username, admin: usersCollection.admin})
+                if(usersCollection.admin == true) {
+                    res.redirect('/admin.html')
+                } else {
+                    res.redirect('/')
+                } 
             }
             else {
                 //Failed login attempt
