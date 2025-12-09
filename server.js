@@ -296,7 +296,7 @@ app.get('/shoppingcart.html', (req, res) => {
     }
 })
 
-app.get('/checkout.html', (req, res) => {
+app.post('/checkout.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'checkout.html'))
 })
 
