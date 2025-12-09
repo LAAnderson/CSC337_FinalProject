@@ -7,7 +7,7 @@ Follow the steps below to install dependencies and run the project.
 ```
   npm install express &
   npm install path &
-  npm install mongo &
+  npm install mongodb &
   npm install crypto
 ```
 
