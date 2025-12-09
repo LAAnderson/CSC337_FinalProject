@@ -219,6 +219,17 @@ app.get('/shoppingcart', (req, res) => {
     }
 })
 
+app.get('/get_games', function(req, res){
+    findPromise('games', {})
+    .then(function(arr){
+        console.log(arr)
+        res.send(arr)
+    })
+    .catch(function(err){
+        console.log(err)
+    })
+})
+
 app.get('/search', (req, res) => {
 
 })
