@@ -11,7 +11,7 @@ Follow the steps below to install dependencies and run the project.
   npm install crypto
 ```
 
-2. Install [MongoSH]:https://www.mongodb.com/docs/mongodb-shell/
+2. Install [MongoSH](https://www.mongodb.com/docs/mongodb-shell/)
    
 3. In the project directory, run
 ```
