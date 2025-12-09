@@ -102,31 +102,32 @@ app.get('/login.html', (req, res) => {
 
 //Logs user in and sends user to the storefront.
 app.post('/login', express.urlencoded(), (req,res) => {
-    var query = req.body
-    var hash = crypto.createHash('sha256')
-    var hashedPassword = hash.update(query.password).digest('hex')
-    //Attempt login.
-    usersCollection.find({username: query.username, password: hashedPassword}).toArray()
-        .then(usersFound => {
-            if(usersFound.length > 0) {
-                //Successful login
-                sessionList.push({'username': query.username, admin: usersCollection.admin})
-                if(usersCollection.admin == true) {
-                    res.redirect('/admin.html')
-                } else {
-                    res.redirect('/')
-                } 
-            }
-            else {
-                //Failed login attempt
-                res.send("Invalid username or password. <a href='/login.html'>Try again</a>")
-            }
-        })
-        .catch((err) => {
-            console.log(err)
-            res.status(500).send("Login error")
-        })
-})
+    var query = req.body;
+    var hash = crypto.createHash('sha256');
+    var hashedPassword = hash.update(query.password).digest('hex');
+
+    usersCollection.find({ username: query.username, password: hashedPassword }).toArray()
+    .then(usersFound => {
+        if (usersFound.length == 0) {
+            return res.send("Invalid username or password. <a href='/login.html'>Try again</a>")
+        }
+
+        var user = usersFound[0]
+
+        sessionList.push({username: user.username,admin: user.admin})
+
+        if (user.admin == true) {
+            res.redirect('/admin.html?username=' + user.username)
+        } else {
+            res.redirect('/storefront.html?username=' + user.username)
+        }
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).send("Login error")
+    });
+});
+
 
 //Logs the user out.
 app.get('/logout', (req, res) => {
@@ -247,6 +248,22 @@ app.get('/images', (req, res) => {
     const filepath = path.join(__dirname, filename);
     res.sendFile(filepath);
 });
+
+app.get('/admin.html', (req, res) => {
+    var username = req.query.username
+
+    if (username && checkSession(username)) {
+        // Find the user in the sessionList
+        var user = sessionList.find(u => u.username == username)
+
+        if (user && user.admin == true) {
+            return res.sendFile(path.join(__dirname, 'admin.html'))
+        }
+        return res.send("Access denied. <a href='/'>Go back</a>")
+    }
+    res.send("Please log in. <a href='/login.html'>Log in</a>")
+})
+
 
 
 app.post('/admin/addUser', express.json(), async (req, res) => {
