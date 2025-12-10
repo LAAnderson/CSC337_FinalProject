@@ -1,9 +1,7 @@
 const express = require('express')
 const app = express()
 const crypto = require('crypto')
-const fs = require('fs')
 const url = require('url')
-const qs = require('querystring')
 const path = require('path')
 
 const {connectDB} = require('./db')
@@ -22,7 +20,6 @@ connectDB().then(collections => {
 
     gamesCollection = collections.gamesCollection
     gamesCollection.createIndex({"name": "text"})
-    console.log('gamesCollection is ready')
 
     cartsCollection = collections.cartsCollection
     console.log('cartsCollection is ready')
